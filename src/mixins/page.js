@@ -1,5 +1,5 @@
 export default {
-  data () {
+  data() {
     return {
       isInit: true,
       pageCurrent: 1,
@@ -12,23 +12,29 @@ export default {
   },
 
   computed: {
-    lengthList () {
+    lengthList() {
       return this.pageList.length
     },
     noMore: {
-      get () {
+      get() {
         return !this.isInit && this.pageList.length >= this.pageTotal
+      },
+      set(v) {
+        return v
       }
     },
     scrollDisabled: {
-      get () {
+      get() {
         return this.pageLoading || this.noMore
+      },
+      set(v) {
+        return v
       }
     }
   },
 
   methods: {
-    async pageLoad () {
+    async pageLoad() {
       this.pageLoading = true
       try {
         const res = await this.pageRequest({ page: this.pageCurrent, limit: this.pageLimit })
@@ -39,7 +45,9 @@ export default {
           this.pageCurrent++
         }
         this.beforeAssignPageList && this.beforeAssignPageList(res.page.list)
-        this.pageList = this.dataProcessing ? this.dataProcessing(this.pageList.concat(res.page.list)) : this.pageList.concat(res.page.list)
+        this.pageList = this.dataProcessing
+          ? this.dataProcessing(this.pageList.concat(res.page.list))
+          : this.pageList.concat(res.page.list)
       } catch (e) {
         console.log(e)
         this.isInit = false
@@ -48,7 +56,7 @@ export default {
       this.pageLoading = false
     },
 
-    resetPageParams () {
+    resetPageParams() {
       this.isInit = true
       this.pageList = []
       this.pageCurrent = 1
@@ -57,7 +65,7 @@ export default {
       this.pageLoad()
     },
 
-    refresh () {
+    refresh() {
       this.resetPageParams()
     }
   }

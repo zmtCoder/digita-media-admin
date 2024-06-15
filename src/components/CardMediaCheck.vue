@@ -1,13 +1,14 @@
 <template>
-  <div class="card-media-check box-shadow" :class="active ? 'active' : ''">
+  <div class="card-media-check box-shadow" :class="active ? 'active' : ''" @click="onClick">
     <i v-show="active" class="iconfont active_icon icon-duihao"></i>
     <div class="card-media-check-media">
       <el-image
         v-if="info.mediaType !== 0"
         class="detail-media-src_img"
         :src="img"
-        fit='contain'
-        :preview-src-list="[img]">
+        fit="contain"
+        :preview-src-list="[img]"
+      >
         <div slot="error" class="image-slot">
           <i class="error-img_icon el-icon-picture-outline"></i>
         </div>
@@ -16,33 +17,38 @@
         <div class="mask" @click="dialogVisible = true">
           <i class="iconfont icon-bofang"></i>
         </div>
-        <video-player :info='info' :autoplay='false' :options='{ autoplay: false, controls: false}'></video-player>
+        <video-player
+          :info="info"
+          :autoplay="false"
+          :options="{ autoplay: false, controls: false }"
+        ></video-player>
       </template>
     </div>
     <div class="card-media-check-info" @click="check">
       <p class="card-media-check-info-item">
         <span class="name type">媒体类型</span>
-        <span class="value type">{{mediaType}}</span>
+        <span class="value type">{{ mediaType }}</span>
       </p>
       <p class="card-media-check-info-item des">
         <span class="name">媒体大小</span>
-        <span class="value">{{oldSize}}</span>
+        <span class="value">{{ oldSize }}</span>
       </p>
       <p class="card-media-check-info-item des">
         <span class="name">播放时长</span>
-        <span class="value">{{length}}</span>
+        <span class="value">{{ length }}</span>
       </p>
     </div>
     <template v-if="dialogVisible">
       <el-dialog
         title="视频媒体"
         :visible.sync="dialogVisible"
-        @close='close'
-        @open='open'
+        @close="close"
+        @open="open"
         append-to-body
-        width="640px">
+        width="640px"
+      >
         <span>
-          <video-player ref='videoPlayer' :info='info'></video-player>
+          <video-player ref="videoPlayer" :info="info"></video-player>
         </span>
       </el-dialog>
     </template>
@@ -75,33 +81,33 @@ export default {
   },
 
   computed: {
-    img () {
+    img() {
       return this.info.address
     },
 
-    active () {
+    active() {
       return this.checkeArr.includes(this.value)
     }
   },
 
-  data () {
+  data() {
     return {
       dialogVisible: false
     }
   },
 
   methods: {
-    close () {
+    close() {
       this.$refs.videoPlayer.dispose()
     },
 
-    open () {
+    open() {
       this.$nextTick(() => {
         this.$refs.videoPlayer.init()
       })
     },
 
-    check () {
+    check() {
       let arr = []
       if (this.active) {
         arr = this.checkeArr.filter(item => item !== this.value)
@@ -109,6 +115,10 @@ export default {
         arr = this.checkeArr.concat([this.value])
       }
       this.$emit('update:checkeArr', arr)
+    },
+
+    onClick() {
+      this.$emit('onClick', this.info)
     }
   }
 }
@@ -116,7 +126,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/handler.scss';
-.card-media-check{
+.card-media-check {
   width: 100%;
   height: 95px;
   margin-bottom: 10px;
@@ -125,7 +135,7 @@ export default {
   box-sizing: border-box;
   padding: 5px;
   border: 1px solid transparent;
-  &-media{
+  &-media {
     width: 80px;
     height: 80px;
     flex-shrink: 0;
@@ -135,12 +145,12 @@ export default {
     align-items: center;
     border: 1px solid #f0f0f0;
     position: relative;
-    /deep/ .el-image__inner{
+    /deep/ .el-image__inner {
       width: 80px;
       height: 80px;
     }
   }
-  &-info{
+  &-info {
     flex: 1;
     margin-left: 15px;
     display: flex;
@@ -150,38 +160,38 @@ export default {
     cursor: pointer;
   }
 }
-.type{
+.type {
   font-size: 14px;
 }
-.name{
+.name {
   margin-right: 5px;
 }
-.des{
+.des {
   margin-top: 15px;
 }
-.mask{
+.mask {
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100%;
   cursor: pointer;
   z-index: 2;
-  & i{
+  & i {
     cursor: pointer;
     font-size: 20px;
     color: #fff;
   }
 }
-.active{
+.active {
   @include border-color('primary');
   position: relative;
-  animation: all ease .3s;
-  &::after{
+  animation: all ease 0.3s;
+  &::after {
     display: block;
     content: '';
     width: 0px;
@@ -193,7 +203,7 @@ export default {
     top: 0;
     right: 0;
   }
-  &_icon{
+  &_icon {
     color: #fff;
     font-size: 14px;
     position: absolute;

@@ -2,30 +2,50 @@
   <el-drawer
     title="媒体列表"
     direction="rtl"
-    :size='400'
+    :size="400"
     :visible="visible"
-    @close='close'
-    @open='open'
+    @close="close"
+    @open="open"
     class="base-drawer-media"
   >
-    <div class="content infinite-list-wrapper" :class="empty ? 'flex-center' : ''" style="overflow:auto">
+    <div
+      class="content infinite-list-wrapper"
+      :class="empty ? 'flex-center' : ''"
+      style="overflow:auto"
+    >
       <ul
         class="list clear"
         v-infinite-scroll="pageLoad"
-        infinite-scroll-disabled='scrollDisabled'
+        :infinite-scroll-disabled="scrollDisabled"
       >
         <template v-for="item in pageList">
-          <card-media-check :key="item.id" :info='item' :checkeArr.sync='checkeArr' :value='item.id'></card-media-check>
+          <card-media-check
+            @onClick="check(item)"
+            :key="item.id"
+            :info="item"
+            :checkeArr="checkeArr"
+            :value="item.id"
+          ></card-media-check>
         </template>
         <template v-if="empty && pageLoading">
           <base-empty></base-empty>
         </template>
-        <base-page-loading :loading='pageLoading' :noMore='noMore' :list='pageList'></base-page-loading>
+        <base-page-loading
+          :loading="pageLoading"
+          :noMore="noMore"
+          :list="pageList"
+        ></base-page-loading>
+        <div class="fix--values">
+          {{ scrollDisabled }}
+          {{ empty }}
+          {{ pageLoading }}
+          {{ noMore }}
+        </div>
       </ul>
     </div>
     <div class="demo-drawer__footer">
       <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="add" :disabled='empty'>添加</el-button>
+      <el-button type="primary" @click="add" :disabled="empty">添加</el-button>
     </div>
   </el-drawer>
 </template>
@@ -51,12 +71,12 @@ export default {
   },
 
   computed: {
-    empty () {
+    empty() {
       return !this.pageList.length
     }
   },
 
-  data () {
+  data() {
     return {
       pageRequest: listMedia,
       pageList: [],
@@ -65,41 +85,54 @@ export default {
   },
 
   methods: {
-    close () {
+    close() {
       this.$emit('update:visible', false)
     },
 
-    open () {
+    open() {
       this.refresh()
       this.checkeArr = []
     },
 
-    add () {
-      const checkeArr = this.pageList.filter(item => this.checkeArr.includes(item.id))
+    add() {
+      // const checkeArr = this.pageList.filter(item => this.checkeArr.includes(item.id))
+      const checkeArr = this.checkeArr.map(id => {
+        const item = this.pageList.find(item => item.id === id)
+        return item
+      })
       const uncheckeArr = this.pageList.filter(item => !this.checkeArr.includes(item.id))
       this.$emit('add', checkeArr, uncheckeArr)
       this.$emit('update:visible', false)
+    },
+
+    check(item) {
+      const index = this.checkeArr.findIndex(el => el === item.id)
+      if (index >= 0) {
+        this.checkeArr.splice(index, 1)
+      } else {
+        this.checkeArr.push(item.id)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base-drawer-media{
-  /deep/ .el-drawer{
+.base-drawer-media {
+  /deep/ .el-drawer {
     background-color: #f9f9f9;
   }
-  /deep/ .el-drawer__header{
+  /deep/ .el-drawer__header {
     margin-bottom: 20px;
   }
-  /deep/ .el-drawer__body{
+  /deep/ .el-drawer__body {
     display: flex;
     flex-direction: column;
     border-top: 1px solid #f0f0f0;
     padding: 5px;
     overflow: auto;
   }
-  /deep/ .demo-drawer__footer{
+  /deep/ .demo-drawer__footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -107,14 +140,18 @@ export default {
     box-sizing: border-box;
     border-top: 1px solid #f0f0f0;
     padding: 5px 0;
-    & button{
+    & button {
       width: 40%;
     }
   }
 }
-.content{
+.content {
   box-sizing: border-box;
   flex: 1;
   overflow: auto;
+}
+.fix--values {
+  opacity: 0;
+  height: 0;
 }
 </style>
