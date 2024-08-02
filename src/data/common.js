@@ -167,6 +167,11 @@ export const orientProjection = Object.freeze([
   { value: 3, label: '反向' },
   { value: 4, label: '右转' }
 ])
+// 设备投影闪烁 -------------------------------------------------------------------------------------------
+export const lightBlinkOptions = Object.freeze([
+  { value: 0, label: '常亮' },
+  { value: 1, label: '闪烁' }
+])
 
 // 投影雷达联动 警灯雷达联动 -------------------------------------------------------------------------------------------
 export const linkOptions = Object.freeze([

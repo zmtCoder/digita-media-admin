@@ -18,6 +18,23 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="投影闪烁" prop="lightBlink">
+        <el-select
+          :disabled="disabled"
+          v-model="ruleForm.lightBlink"
+          placeholder="请选择设备投影闪烁"
+          @change="modelLight"
+          style="width: 100%"
+        >
+          <el-option
+            v-for="item in lightBlinkOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="投影控制" prop="lightControl" style="text-align: right;">
         <el-switch
           :disabled="disabled"
@@ -121,7 +138,7 @@
 
 <script>
 import { lightDevice, directionDevice, lampDevice, radarDevice } from '@/api/device'
-import { orientProjection } from '@/data/common'
+import { orientProjection, lightBlinkOptions } from '@/data/common'
 import prompt from '@/mixins/prompt'
 import { omit } from 'lodash'
 export default {
@@ -178,9 +195,11 @@ export default {
         timeOpen: '00:00',
         lightControl: 0,
         lightBrightness: 1,
+        lightBlink: 1,
         lamp: 0,
         radar: 0
       },
+      lightBlinkOptions,
       style: {
         width: '100%'
       }
