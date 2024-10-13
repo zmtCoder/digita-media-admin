@@ -16,7 +16,7 @@
           <el-radio-group :disabled="disabled" v-model="lightColor" @change="changeColor">
             <el-radio class="green" :label="1">绿色</el-radio>
             <el-radio class="red" :label="0">红色</el-radio>
-            <el-radio class="yellow" :label="9">黄色</el-radio>
+            <el-radio class="yellow" :label="9" v-if="scenes !== 'customizeScenes2'">黄色</el-radio>
           </el-radio-group>
           <!-- <el-switch
             v-if="hasSwitch"

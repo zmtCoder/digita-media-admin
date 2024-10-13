@@ -81,7 +81,19 @@ export const SuggestType = Object.freeze([
 ])
 
 // 播放列表类型
-const scenesOne = { weatherScenes: [{ type: 'sunny', index: 0 }] }
+const scenesOne = {
+  customizeScenes2: [
+    { type: 'customize1', index: 0 },
+    { type: 'customize2', index: 1 },
+    { type: 'customize3', index: 2 },
+    { type: 'customize4', index: 3 },
+    { type: 'customize5', index: 4 },
+    { type: 'customize6', index: 5 },
+    { type: 'customize7', index: 6 },
+    { type: 'customize8', index: 7 },
+    { type: 'customize9', index: 8 }
+  ]
+}
 const scenesTwo = {
   weatherScenes: [
     { type: 'sunny', index: 0 },
@@ -126,7 +138,7 @@ const scenesSix = {
 // 设备类型-------------------------------------------------------------------------------------------
 export const deviceType = Object.freeze([
   // ELF-A
-  { value: 'XA', label: 'XA', scenes: scenesOne, hasSwitch: false },
+  { value: 'FA', label: 'FA', scenes: scenesOne, hasSwitch: false },
   // TA
   { value: 'TA', label: 'TA', scenes: scenesThree, hasSwitch: true },
   { value: 'TA-C', label: 'TA-C', scenes: scenesFive, hasSwitch: false },
@@ -205,6 +217,12 @@ const s = [
   { label: '积雪', value: 3 },
   { label: '结冰', value: 4 }
 ]
+const a = new Array(9).fill('').map((el, index) => {
+  return {
+    label: '场景' + (index + 1),
+    value: index + 1
+  }
+})
 const c = [
   { label: '红灯', value: 0 },
   { label: '绿灯', value: 1 }
@@ -223,7 +241,7 @@ export const scenesOptions = Object.freeze({
   'TB-RG': w,
   'TB-RG-S': s,
   'TB-RG-C': c,
-  XA: [{ value: 0, label: '默认场景' }],
+  FA: a,
   TA: w,
   'TA-C': c,
   'TA-R': r,
@@ -280,6 +298,17 @@ const customizeScenes = Object.freeze([
   { type: 'customize1', title: '自定义场景1', des: '用户可根据需要自行配置' },
   { type: 'customize2', title: '自定义场景2', des: '用户可根据需要自行配置' }
 ])
+const customizeScenes2 = Object.freeze([
+  { type: 'customize1', title: '场景1', des: '用户可根据需要自行配置' },
+  { type: 'customize2', title: '场景2', des: '用户可根据需要自行配置' },
+  { type: 'customize3', title: '场景3', des: '用户可根据需要自行配置' },
+  { type: 'customize4', title: '场景4', des: '用户可根据需要自行配置' },
+  { type: 'customize5', title: '场景5', des: '用户可根据需要自行配置' },
+  { type: 'customize6', title: '场景6', des: '用户可根据需要自行配置' },
+  { type: 'customize7', title: '场景7', des: '用户可根据需要自行配置' },
+  { type: 'customize8', title: '场景8', des: '用户可根据需要自行配置' },
+  { type: 'customize9', title: '场景9', des: '用户可根据需要自行配置' }
+])
 
 // 交通灯场景-------------------------------------------------------------------------------------------
 const lightScenes = Object.freeze([
@@ -298,7 +327,8 @@ export const playlistType = Object.freeze({
   roadScenes,
   customizeScenes,
   lightScenes,
-  listScenes
+  listScenes,
+  customizeScenes2
 })
 
 // 媒体服务器类型-------------------------------------------------------------------------------------------

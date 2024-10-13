@@ -18,7 +18,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="投影闪烁" prop="lightBlink">
+      <el-form-item label="投影闪烁" prop="lightBlink" v-if="!isFA">
         <el-select
           :disabled="disabled"
           v-model="ruleForm.lightBlink"
@@ -164,6 +164,9 @@ export default {
   computed: {
     id() {
       return this.info.id ? this.info.id : undefined
+    },
+    isFA() {
+      return ['FA'].includes(this.info.type)
     },
     isR() {
       return ['TA-R', 'TB-R', 'TC-R'].includes(this.info.type)

@@ -117,6 +117,21 @@
   background-size: 300px !important;
 }
 
+.customizeScenes2 {
+  background-image: url('../assets/common/customizeScenes.jpg');
+  background-size: 300px !important;
+}
+
+// 定义要生成的类的数量
+$number-of-classes: 9;
+
+// 使用for循环生成类名
+@for $i from 1 through $number-of-classes {
+  .customize#{$i} {
+    background-position: -30px -189px;
+  }
+}
+
 .customize1 {
   background-position: -30px -189px;
 }
@@ -124,6 +139,7 @@
 .customize2 {
   background-position: -30px -189px;
 }
+
 
 /*自定义场景-----------------------------------------------------------------*/
 .listScenes {
