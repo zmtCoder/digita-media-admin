@@ -23,7 +23,7 @@
 
     <li class="device-state-item">
       <span class="device-state-item_name">核心温度</span>
-      <span class="device-state-item_value" :class="highTemp ? 'error' : 'success'">{{
+      <span class="device-state-item_value" :class="highTemp ? 'error' : ''">{{
         temperature
       }}</span>
     </li>

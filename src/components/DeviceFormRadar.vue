@@ -77,7 +77,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="投影雷达联动模式" prop="linkLightMode">
+      <el-form-item v-if="ruleForm.linkLight !== 0" label="投影雷达联动模式" prop="linkLightMode">
         <el-select
           :disabled="disabled"
           v-model="ruleForm.linkLightMode"

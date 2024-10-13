@@ -94,7 +94,7 @@ import DeviceState from '@/components/DeviceState.vue'
 import DeviceInfo from '@/components/DeviceInfo.vue'
 import BaseDrawerMedia from '@/components/BaseDrawerMedia.vue'
 import { infoDevice } from '@/api/device'
-import { getPlaylist, updateContentV2 } from '@/api/playList'
+import { getPlaylist, updateContentV2 } from '@/api/playlist'
 import { deviceType } from '@/data/common'
 import eventBus from '@/utils/eventBus'
 export default {

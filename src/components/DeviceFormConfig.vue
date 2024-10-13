@@ -38,10 +38,10 @@
       <el-form-item label="投影控制" prop="lightControl" style="text-align: right;">
         <el-switch
           :disabled="disabled"
-          inactive-text="手动"
-          active-text="时间控制"
-          :active-value="0"
-          :inactive-value="1"
+          inactive-text="时间控制"
+          active-text="手动"
+          :active-value="1"
+          :inactive-value="0"
           v-model="ruleForm.lightControl"
           @change="modelLight"
           active-color="#13ce66"
